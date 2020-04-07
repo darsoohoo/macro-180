@@ -34,19 +34,36 @@ const Meals = ({ meal: { meals, loading }, getMeals }) => {
         return "Loading..."
     }
 
-    return (
-        <div>
-            <ul>
-                <li>
-                    <h4>All Meals</h4>
-                </li>
-                {!loading && meals.length === 0 ? (
-                    <p>No logs to show...</p>
-                ) : (
-                meals.map(meal => <li meal={meal} key={meal.id}>{meal.name}</li>)
-                )}
-            </ul>
-        </div>
+    return (          
+            <TableContainer>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Meal #</TableCell>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Fat</TableCell>
+                        <TableCell>Carbs</TableCell>
+                        <TableCell>Protein</TableCell>
+                        <TableCell>Calories</TableCell>
+                        <TableCell>Date</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {meals.map((meal, index) => (
+                        <TableRow key={meal.id}>
+                            <TableCell align="right" component="th" scope="row">
+                                {index + 1}
+                            </TableCell>
+                            <TableCell align="left">{meal.name}</TableCell>
+                            <TableCell align="right">{meal.fat}</TableCell>
+                            <TableCell align="right">{meal.carbs}</TableCell>
+                            <TableCell align="right">{meal.protein}</TableCell>
+                            <TableCell align="right">{meal.calories}</TableCell>
+                            <TableCell align="right">{meal.date}</TableCell>
+
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </TableContainer>
     );
 };
 
