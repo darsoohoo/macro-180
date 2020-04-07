@@ -1,0 +1,9 @@
+export const GET_MEALS = 'GET_MEALS';
+export const ADD_MEAL = 'ADD_MEAL';
+export const DELETE_MEAL = 'DELETE_MEAL';
+export const SET_CURRENT = 'SET_CURRENT';
+export const CLEAR_CURRENT = 'CLEAR_CURRENT';
+export const UPDATE_MEAL = 'UPDATE_MEAL';
+export const CLEAR_MEALS = 'CLEAR_MEALS';
+export const SET_LOADING = 'SET_LOADING';
+export const MEALS_ERROR = 'MEALS_ERROR';
