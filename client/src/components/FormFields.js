@@ -3,94 +3,60 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
 import { makeStyles } from '@material-ui/core/styles';
+import { addMeal } from '../actions/mealActions';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
+import { set } from 'mongoose';
 
 const useStyles = makeStyles(theme => ({
   root: {
     '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 200,
+      margin: theme.spacing(1.50),
+      width: 210,
       borderColor: 'green'
     },
   },
   form: {
-      marginTop: '40px'
+      marginTop: '20px'
   },
   submitButton: {
     marginLeft: "auto",
-    marginRight: theme.spacing(2),
     border: 'solid black'
   }
 }));
 
-const FormFields = () => {
+const FormFields = ({ addMeal }) => {
 
-  const [values, setValues] = useState({
-    name: "",
-    date: "",
-    protein: "",
-    carbohydrate: "",
-    fat: "",
-    calories: "",
-    formData: ""
-  })
+  const [name, setName] = useState('');
+  const [fat, setFat] = useState('');
+  const [carbohydrate, setCarbohydrate] = useState('');
+  const [protein, setProtein] = useState('');
+  const [calories, setCalories] = useState('');
+  const [date, setDate] = useState('');
 
-  const {
-    name,
-    date,
-    protein,
-    carbohydrate,
-    fat,
-    calories,
-    formData
-  } = values;
+  const clickSubmit = () => {
+    if (name === '') {
+      
+    }
+    const newMeal = {
+      name,
+      fat,
+      carbohydrate,
+      protein,
+      calories,
+      date: new Date()
+    }
 
-  const init = () => {
-    setValues({
-      ...values,
-      formData: new FormData()
-    })
+    addMeal(newMeal);
+
+    // Clear Fields
+    setName('');
+    setFat('');
+    setCarbohydrate('');
+    setProtein('');
+    setCalories('');
+    setDate('');
   };
-
-  useEffect(() => {
-    init();
-  }, []);
-
-  const handleChange = name => event => {
-    const value = event.target.value;
-    formData.set(name, value);
-    setValues({ ...values, [name]: value });
-};
-
-
-  const clickSubmit = event => {
-    event.preventDefault();
-    setValues({ ...values, error: "", loading: true });
-        fetch(`/api/meals/`, {
-          method: "POST",
-          headers: {
-              Accept: "application/json"
-          },
-          body: formData
-        })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => {
-            console.log(err);
-        });
-
-        setValues({
-          ...values,
-          name: "",
-          date: "",
-          protein: "",
-          carbohydrate: "",
-          fat: "",
-          calories: "",
-          formData: ""
-        });
-  };
-
 
   const classes = useStyles();
   const timeConverter = () => {
@@ -111,10 +77,9 @@ const FormFields = () => {
             defaultValue=" " 
             variant="outlined"
             color="secondary"
-            
             name='name'
             value={name}
-            onChange={handleChange("name")}
+            onChange={e => setName(e.target.value)}
         />
         <TextField
           disabled
@@ -122,7 +87,7 @@ const FormFields = () => {
           variant="outlined"
           name='date'
           value={timeConverter()}
-          onChange={handleChange("date")}
+          onChange={e => setDate(e.target.value)}
         />
       </div>
       <div>
@@ -132,7 +97,7 @@ const FormFields = () => {
           variant="outlined"
           name='protein'
           value={protein}
-          onChange={handleChange("protein")}
+          onChange={e => setProtein(e.target.value)}
         />
         <TextField
           id="filled-error-helper-text"
@@ -140,7 +105,7 @@ const FormFields = () => {
           variant="outlined"
           name='carbohydrate'
           value={carbohydrate}
-          onChange={handleChange("carbohydrate")}
+          onChange={e => setCarbohydrate(e.target.value)}
         />
       </div>
       <div>
@@ -150,7 +115,7 @@ const FormFields = () => {
           variant="outlined"
           name='fat'
           value={fat}
-          onChange={handleChange("fat")}
+          onChange={e => setFat(e.target.value)}
         />
         <TextField
           id="outlined-error-helper-text"
@@ -158,7 +123,7 @@ const FormFields = () => {
           variant="outlined"
           name='calories'
           value={calories}
-          onChange={handleChange("calories")}
+          onChange={e => setCalories(e.target.value)}
         />
       </div>
       <CardActions>
@@ -168,4 +133,8 @@ const FormFields = () => {
   );
 }
 
-export default FormFields;
+FormFields.propTypes = {
+  addMeal: PropTypes.func.isRequired
+}
+
+export default connect(null, { addMeal })(FormFields);
