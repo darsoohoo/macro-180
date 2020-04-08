@@ -5,28 +5,26 @@ import CardActions from '@material-ui/core/CardActions';
 import { makeStyles } from '@material-ui/core/styles';
 import { addMeal } from '../actions/mealActions';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types'
-import { set } from 'mongoose';
+import PropTypes from 'prop-types';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
-      margin: theme.spacing(1.50),
+      margin: theme.spacing(1.5),
       width: 210,
-      borderColor: 'green'
+      borderColor: 'green',
     },
   },
   form: {
-      marginTop: '20px'
+    marginTop: '20px',
   },
   submitButton: {
-    marginLeft: "auto",
-    border: 'solid black'
-  }
+    marginLeft: 'auto',
+    border: 'solid black',
+  },
 }));
 
 const FormFields = ({ addMeal }) => {
-
   const [name, setName] = useState('');
   const [fat, setFat] = useState('');
   const [carbohydrate, setCarbohydrate] = useState('');
@@ -34,9 +32,12 @@ const FormFields = ({ addMeal }) => {
   const [calories, setCalories] = useState('');
   const [date, setDate] = useState('');
 
+  const getCalories = () => {
+    return fat * 9 + carbohydrate * 4 + protein * 4;
+  };
+
   const clickSubmit = () => {
     if (name === '') {
-      
     }
     const newMeal = {
       name,
@@ -44,8 +45,8 @@ const FormFields = ({ addMeal }) => {
       carbohydrate,
       protein,
       calories,
-      date: new Date()
-    }
+      date,
+    };
 
     addMeal(newMeal);
 
@@ -59,80 +60,86 @@ const FormFields = ({ addMeal }) => {
   };
 
   const classes = useStyles();
-  const timeConverter = () => {
-    const date = new Date();
-    const month = date.getUTCMonth();
-    const day = date.getDate();
-    const year = date.getFullYear();
-    const formattedTime = month + 1 + '/' + day + '/' + year;
-    return formattedTime;
-  }
 
   return (
-    <form onSubmit={clickSubmit} className={classes.root} noValidate autoComplete="off">
+    <form
+      onSubmit={clickSubmit}
+      className={classes.root}
+      noValidate
+      autoComplete='off'
+    >
       <div className={classes.form}>
-        <TextField 
-            id="standard-error" 
-            label="Name" 
-            variant="outlined"
-            color="secondary"
-            name='name'
-            value={name}
-            onChange={e => setName(e.target.value)}
-        />
         <TextField
-          label="Date"
-          variant="outlined"
+          id='standard-error'
+          label='Name'
+          variant='outlined'
+          color='secondary'
+          name='name'
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <TextField
+          label='Date'
+          id='date'
           name='date'
+          variant='outlined'
+          type='date'
           value={date}
-          onChange={e => setDate(e.target.value)}
+          defaultValue={Date.now}
+          onChange={(e) => setDate(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
       </div>
       <div>
         <TextField
-          id="outlined-error-helper-text"
-          label="Protein"
-          variant="outlined"
+          id='outlined-error-helper-text'
+          label='Protein'
+          variant='outlined'
           name='protein'
           value={protein}
-          onChange={e => setProtein(e.target.value)}
+          onChange={(e) => setProtein(e.target.value)}
         />
         <TextField
-          id="filled-error-helper-text"
-          label="Carbohydrate"
-          variant="outlined"
+          id='filled-error-helper-text'
+          label='Carbohydrate'
+          variant='outlined'
           name='carbohydrate'
           value={carbohydrate}
-          onChange={e => setCarbohydrate(e.target.value)}
+          onChange={(e) => setCarbohydrate(e.target.value)}
         />
       </div>
       <div>
         <TextField
-          id="outlined-error"
-          label="Fat"
-          variant="outlined"
+          id='outlined-error'
+          label='Fat'
+          variant='outlined'
           name='fat'
           value={fat}
-          onChange={e => setFat(e.target.value)}
+          onChange={(e) => setFat(e.target.value)}
         />
         <TextField
-          id="outlined-error-helper-text"
-          label="Calories"
-          variant="outlined"
+          id='outlined-error-helper-text'
+          label='Calories'
+          variant='outlined'
           name='calories'
-          value={calories}
-          onChange={e => setCalories(e.target.value)}
+          value={getCalories()}
+          onChange={(e) => setCalories(e.target.value)}
         />
       </div>
       <CardActions>
-         <Button className={classes.submitButton} size="small" type="submit">Submit</Button>
+        <Button className={classes.submitButton} size='small' type='submit'>
+          Submit
+        </Button>
       </CardActions>
     </form>
   );
-}
+};
 
 FormFields.propTypes = {
-  addMeal: PropTypes.func.isRequired
-}
+  addMeal: PropTypes.func.isRequired,
+};
 
 export default connect(null, { addMeal })(FormFields);
