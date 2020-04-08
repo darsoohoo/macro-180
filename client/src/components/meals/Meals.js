@@ -11,6 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import MealItem from './MealItem';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 800,
@@ -20,6 +21,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 const Meals = ({ meal: { meals, loading }, getMeals}) => {
   const classes = useStyles();
 
@@ -28,14 +31,6 @@ const Meals = ({ meal: { meals, loading }, getMeals}) => {
     getMeals();
   }, []);
 
-  const timeConverter = (mealDate) => {
-    const date = mealDate;
-    const month = date.getUTCMonth();
-    const day = date.getDate();
-    const year = date.getFullYear();
-    const formattedTime = month + 1 + '/' + day + '/' + year;
-    return formattedTime;
-  }
 
   if (loading || meals === null) {
     return 'Loading...';

@@ -18,7 +18,8 @@ router.post('/', (req, res) => {
             calories: req.body.calories,
             protein: req.body.protein,
             carbohydrate: req.body.carbohydrate,
-            fat: req.body.fat
+            fat: req.body.fat,
+            date: req.body.date
         });
         newItem.save().then(item => res.json(item));
 })
