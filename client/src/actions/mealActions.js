@@ -1,4 +1,12 @@
-import { GET_MEALS, SET_LOADING, MEALS_ERROR, ADD_MEAL } from './types';
+import { 
+    GET_MEALS, 
+    SET_LOADING, 
+    MEALS_ERROR, 
+    ADD_MEAL, 
+    DELETE_MEAL,
+    SET_CURRENT,
+    CLEAR_CURRENT
+ } from './types';
 
 // export const getMeals = () => {
 //     return (dispatch) => {
@@ -14,7 +22,7 @@ import { GET_MEALS, SET_LOADING, MEALS_ERROR, ADD_MEAL } from './types';
 //     }
 // }
 
-// Get logs from server
+// Get meals from server
 export const getMeals = () => async dispatch => {
     try {
         setLoading();
@@ -30,7 +38,7 @@ export const getMeals = () => async dispatch => {
     } catch (err) {
         dispatch({
             type: MEALS_ERROR,
-            payload: err.response.data
+            payload: err.response.statusText
         });
     }
 };
@@ -58,14 +66,52 @@ export const addMeal = (meal) => async dispatch => {
     } catch (err) {
         dispatch({
             type: MEALS_ERROR,
-            payload: err.response.data
+            payload: err.response.statusText
+        });
+    }
+};
+
+// Delete meal from server
+export const deleteMeal = id => async dispatch => {
+    try {
+        setLoading();
+
+        await fetch(`/api/meals/${id}`, {
+            method: 'DELETE'
+        });
+    
+        dispatch({
+            type: DELETE_MEAL,
+            payload: id
+        });
+    } catch (err) {
+        dispatch({
+            type: MEALS_ERROR,
+            payload: err.response.statusText
         });
     }
 };
 
 
-export const setLoading = () => {
+// Set current meal
+export const setCurrent = meal => {
     return {
-        type: SET_LOADING
-    }
-}
+      type: SET_CURRENT,
+      payload: meal
+    };
+  };
+  
+  // Clear current meal
+  export const clearCurrent = () => {
+    return {
+      type: CLEAR_CURRENT
+    };
+  };
+  
+  // Set loading to true
+  export const setLoading = () => {
+    return {
+      type: SET_LOADING
+    };
+  };
+  

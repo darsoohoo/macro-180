@@ -74,7 +74,6 @@ const FormFields = ({ addMeal }) => {
         <TextField 
             id="standard-error" 
             label="Name" 
-            defaultValue=" " 
             variant="outlined"
             color="secondary"
             name='name'
@@ -82,11 +81,10 @@ const FormFields = ({ addMeal }) => {
             onChange={e => setName(e.target.value)}
         />
         <TextField
-          disabled
           label="Date"
           variant="outlined"
           name='date'
-          value={timeConverter()}
+          value={date}
           onChange={e => setDate(e.target.value)}
         />
       </div>
