@@ -7,3 +7,4 @@ export const UPDATE_MEAL = 'UPDATE_MEAL';
 export const CLEAR_MEALS = 'CLEAR_MEALS';
 export const SET_LOADING = 'SET_LOADING';
 export const MEALS_ERROR = 'MEALS_ERROR';
+export const SEARCH_MEALS = 'SEARCH_MEALS';

@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import Navbar from './Navbar';
 import Form from './Form';
 import { makeStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import store from './store';
 import Divider from '@material-ui/core/Divider';
-import Meals from './Meals';
+import Meals from './meals/Meals';
 
 const useStyles = makeStyles((theme) => ({
     divider: {
@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
     const classes = useStyles();
+    useEffect(() => {
+
+      });
     return (
         <Provider store={store}>
             <div className="App">
