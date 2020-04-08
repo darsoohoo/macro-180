@@ -1,4 +1,4 @@
-import { GET_MEALS, SET_LOADING, MEALS_ERROR } from '../actions/types';
+import { GET_MEALS, SET_LOADING, MEALS_ERROR, ADD_MEAL } from '../actions/types';
 
 const initialState = {
     meals: null,
@@ -14,7 +14,13 @@ export default (state = initialState, action) => {
                 ...state,
                 meals: action.payload,
                 loading: false
-            }
+            };
+            case ADD_MEAL:
+                return {
+                    ...state,
+                    meals: [...state.logs, action.payload],
+                    loading: false
+                };
         case SET_LOADING:
             return {
                 ...state,

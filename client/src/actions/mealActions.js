@@ -1,4 +1,4 @@
-import { GET_MEALS, SET_LOADING, MEALS_ERROR } from './types';
+import { GET_MEALS, SET_LOADING, MEALS_ERROR, ADD_MEAL } from './types';
 
 // export const getMeals = () => {
 //     return (dispatch) => {
@@ -34,6 +34,35 @@ export const getMeals = () => async dispatch => {
         });
     }
 };
+
+
+// Add meal from server
+export const addMeal = (meal) => async dispatch => {
+    try {
+        setLoading();
+
+        const res = await fetch('/api/meals', {
+            method: 'POST',
+            body: JSON.stringify(meal),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await res.json();
+
+        dispatch({
+            type: ADD_MEAL,
+            payload: data
+        });
+        
+    } catch (err) {
+        dispatch({
+            type: MEALS_ERROR,
+            payload: err.response.data
+        });
+    }
+};
+
 
 export const setLoading = () => {
     return {
