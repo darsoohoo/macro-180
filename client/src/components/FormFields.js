@@ -44,7 +44,7 @@ const FormFields = ({ addMeal }) => {
       fat,
       carbohydrate,
       protein,
-      calories,
+      calories: getCalories(),
       date,
     };
 
@@ -86,7 +86,7 @@ const FormFields = ({ addMeal }) => {
           variant='outlined'
           type='date'
           value={date}
-          defaultValue={Date.now}
+          //defaultValue={Date.now}
           onChange={(e) => setDate(e.target.value)}
           InputLabelProps={{
             shrink: true,
