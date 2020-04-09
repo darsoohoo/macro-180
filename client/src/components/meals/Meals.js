@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getMeals } from '../../actions/mealActions';
@@ -10,7 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import MealItem from './MealItem';
-
+import Preloader from '../layout/Preloader';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,24 +19,44 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 'auto',
     marginBottom: 100,
   },
+  preloader: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }));
 
-
-
-const Meals = ({ meal: { meals, loading }, getMeals}) => {
+const Meals = ({ meal: { meals, loading }, getMeals }) => {
   const classes = useStyles();
-
 
   useEffect(() => {
     getMeals();
+
   }, []);
 
-
   if (loading || meals === null) {
-    return 'Loading...';
+    return <Preloader className={classes.preloader} />;
   }
+  console.log(meals);
+
+  const groupItems = () => {
+    const items  = meals;
+
+    let keymap = {};
+    for (let i = 0; i < items.length; i++) {
+      if (!keymap[items[i]["date"]]) {
+        keymap[items[i]["date"]] = [];
+        keymap[items[i]["date"]].push(items[i]);
+      } else {
+        keymap[items[i]["date"]].push(items[i]);
+      }
+    }
+    console.log("keymap ", keymap)
+  };
+  const mealsByDay = groupItems();
 
   return (
+
+
     <TableContainer className={classes.root}>
       <Table>
         <TableHead>
@@ -53,8 +73,6 @@ const Meals = ({ meal: { meals, loading }, getMeals}) => {
         <TableBody>
           {meals.map((meal, index) => (
             <MealItem key={meal._id} index={index} meal={meal} />
-
-
           ))}
         </TableBody>
       </Table>
@@ -64,12 +82,11 @@ const Meals = ({ meal: { meals, loading }, getMeals}) => {
 
 Meals.propTypes = {
   meal: PropTypes.object.isRequired,
-  getMeals: PropTypes.func.isRequired
+  getMeals: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  meal: state.meal
+const mapStateToProps = (state) => ({
+  meal: state.meal,
 });
 
 export default connect(mapStateToProps, { getMeals })(Meals);
-

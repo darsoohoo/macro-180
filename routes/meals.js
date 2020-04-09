@@ -5,6 +5,7 @@ const Item = require('../models/Meal');
 router.get('/', async (req, res) => {
     try {
         const items = await Item.find().sort({ date: -1});
+        console.log(items)
         res.json(items);
     } catch (err) {
         console.error(err.message);
