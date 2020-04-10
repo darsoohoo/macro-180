@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   submitButton: {
     marginLeft: 'auto',
     border: 'solid black',
+    backgroundColor: "#00e5ff"
   },
 }));
 

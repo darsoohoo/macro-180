@@ -7,9 +7,13 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
+
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
+    },
+    appBar: {
+      backgroundColor: "#e91e63"
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -23,18 +27,18 @@ const useStyles = makeStyles(theme => ({
     const classes = useStyles();
   
     return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              Macro 180 
-            </Typography>
-            <Button color="inherit">Login</Button>
-          </Toolbar>
-        </AppBar>
-      </div>
+                <div className={classes.root}>
+                  <AppBar className={classes.appBar} position="static">
+                    <Toolbar>
+                      <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                        <MenuIcon />
+                      </IconButton>
+                      <Typography variant="h6" className={classes.title}>
+                        Macro 180 
+                      </Typography>
+                      <Button color="inherit">Login</Button>
+                    </Toolbar>
+                  </AppBar>
+                </div>
     );
   }

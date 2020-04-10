@@ -33,11 +33,11 @@ export default function DailyTotals({ meals }) {
   return (
     <TableRow>
       <TableCell align='center' component='th' scope='row'></TableCell>
-      <TableCell align='right'></TableCell>
-      <TableCell align='center'>{fat}</TableCell>
-      <TableCell align='center'>{carbohydrate}</TableCell>
-      <TableCell align='center'>{protein}</TableCell>
-      <TableCell align='center'>{calories}</TableCell>
+      <TableCell align='left'><b>Total</b></TableCell>
+      <TableCell align='center'><b>{fat}</b></TableCell>
+      <TableCell align='center'><b>{carbohydrate}</b></TableCell>
+      <TableCell align='center'><b>{protein}</b></TableCell>
+      <TableCell align='center'><b>{calories}</b></TableCell>
       <TableCell align='right'></TableCell>
       <TableCell align='right'></TableCell>
     </TableRow>

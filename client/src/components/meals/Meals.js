@@ -55,13 +55,13 @@ const Meals = ({ meal: { meals, loading }, getMeals }) => {
       const groupTableHeader = (
         <TableHead key={i}>
         <TableRow key={i}>
-          <TableCell>meal</TableCell>
-          <TableCell>name</TableCell>
-          <TableCell>fat</TableCell>
-          <TableCell>carbs</TableCell>
-          <TableCell>protein</TableCell>
+          <TableCell>Meal</TableCell>
+          <TableCell>Name</TableCell>
+          <TableCell>Fat</TableCell>
+          <TableCell>Carbs</TableCell>
+          <TableCell>Protein</TableCell>
           <TableCell>Calories</TableCell>
-          <TableCell>date</TableCell>
+          <TableCell>Date</TableCell>
         </TableRow>
       </TableHead>
       );
