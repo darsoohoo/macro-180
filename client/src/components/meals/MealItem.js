@@ -32,10 +32,10 @@ const MealItem = ({ meal, index, deleteMeal }) => {
         {index + 1}
       </TableCell>
       <TableCell align='left'>{meal.name}</TableCell>
-      <TableCell align='right'>{meal.fat}</TableCell>
-      <TableCell align='right'>{meal.carbohydrate}</TableCell>
-      <TableCell align='right'>{meal.protein}</TableCell>
-      <TableCell align='right'>{meal.calories}</TableCell>
+      <TableCell align='center'>{meal.fat}</TableCell>
+      <TableCell align='center'>{meal.carbohydrate}</TableCell>
+      <TableCell align='center'>{meal.protein}</TableCell>
+      <TableCell align='center'>{meal.calories}</TableCell>
       {timeConverter()}
       <TableCell align='left'>
         <DeleteForeverSharpIcon onClick={onDelete} />
