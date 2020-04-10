@@ -12,6 +12,7 @@ import TableCell from '@material-ui/core/TableCell';
 import MealItem from './MealItem';
 import Preloader from '../layout/Preloader';
 import GroupDescription from './GroupDescription';
+import DailyTotals from './DailyTotals';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +70,8 @@ const Meals = ({ meal: { meals, loading }, getMeals }) => {
         return <MealItem index={i} meal={meal} key={meal._id} />
       });
 
+      const dailyTotals = <DailyTotals meals={attr[1]} />
+
       return (
         <TableContainer className={classes.root}>
         {groupDescription}
@@ -77,6 +80,7 @@ const Meals = ({ meal: { meals, loading }, getMeals }) => {
           <TableBody>
             {row}
           </TableBody>
+            {dailyTotals}
         </Table>
       </TableContainer>
       );
