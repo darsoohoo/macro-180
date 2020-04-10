@@ -11,6 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import MealItem from './MealItem';
 import Preloader from '../layout/Preloader';
+import GroupDescription from './GroupDescription';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,57 +28,68 @@ const useStyles = makeStyles((theme) => ({
 
 const Meals = ({ meal: { meals, loading }, getMeals }) => {
   const classes = useStyles();
-
   useEffect(() => {
     getMeals();
-
   }, []);
+
+
+  console.log("meals", meals)
 
   if (loading || meals === null) {
     return <Preloader className={classes.preloader} />;
   }
-  console.log(meals);
 
-  const groupItems = () => {
-    const items  = meals;
+  const table = meals.map((key, index) => {
+    
+    const group = Object.entries(meals[index]).map((attr, i) => {
+     
+      const groupDescription = (
+        <GroupDescription
+        meals={meals}
+        index={index}
+        i={i}
+      />
+      );
 
-    let keymap = {};
-    for (let i = 0; i < items.length; i++) {
-      if (!keymap[items[i]["date"]]) {
-        keymap[items[i]["date"]] = [];
-        keymap[items[i]["date"]].push(items[i]);
-      } else {
-        keymap[items[i]["date"]].push(items[i]);
-      }
-    }
-    console.log("keymap ", keymap)
-  };
-  const mealsByDay = groupItems();
+      const groupTableHeader = (
+        <TableHead key={i}>
+        <TableRow key={i}>
+          <TableCell>meal</TableCell>
+          <TableCell>name</TableCell>
+          <TableCell>fat</TableCell>
+          <TableCell>carbs</TableCell>
+          <TableCell>protein</TableCell>
+          <TableCell>Calories</TableCell>
+          <TableCell>date</TableCell>
+        </TableRow>
+      </TableHead>
+      );
+      
+      const row = attr[1].map((meal, i) => {
+        return <MealItem index={i} meal={meal} key={meal._id} />
+      });
 
-  return (
+      return (
+        <TableContainer className={classes.root}>
+        {groupDescription}
+        <Table>
+          {groupTableHeader}
+          <TableBody>
+            {row}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      );
+    });
 
+    return group;
+  })
 
-    <TableContainer className={classes.root}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Meal</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Fat</TableCell>
-            <TableCell>Carbs</TableCell>
-            <TableCell>Protein</TableCell>
-            <TableCell>Calories</TableCell>
-            <TableCell>Date</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {meals.map((meal, index) => (
-            <MealItem key={meal._id} index={index} meal={meal} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+  return table;
+  
+      
+   
+
 };
 
 Meals.propTypes = {
@@ -86,7 +98,7 @@ Meals.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  meal: state.meal,
+  meal: state.meal
 });
 
 export default connect(mapStateToProps, { getMeals })(Meals);

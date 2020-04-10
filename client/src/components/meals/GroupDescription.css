@@ -1,0 +1,23 @@
+.group-description {
+  margin-bottom: 5px;
+}
+
+#dropdown-name {
+    float:left;
+    margin-right: 5px;
+    margin-bottom:0px;
+}
+
+.row {
+    margin-bottom: 5px;
+}
+
+#grouping-selection-dropdown {
+    margin-bottom: 16px;
+}
+
+.chip {
+    margin-top: 8px;
+    float:left;
+}
+

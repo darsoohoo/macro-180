@@ -7,10 +7,11 @@ import DeleteForeverSharpIcon from '@material-ui/icons/DeleteForeverSharp';
 import { deleteMeal } from '../../actions/mealActions';
 
 
-const TableItem = ({ meal, index, deleteMeal }) => {
+const MealItem = ({ meal, index, deleteMeal }) => {
   const onDelete = () => {
     deleteMeal(meal._id);
   };
+
   const timeConverter = () => {
     if(meal.date) {
       const date = meal.date.toString();
@@ -22,11 +23,11 @@ const TableItem = ({ meal, index, deleteMeal }) => {
     } else {
       return <TableCell align='center'>NA</TableCell>;
     }
-
   };
 
+
   return (
-    <TableRow>
+    <TableRow >
       <TableCell align='center' component='th' scope='row'>
         {index + 1}
       </TableCell>
@@ -43,9 +44,9 @@ const TableItem = ({ meal, index, deleteMeal }) => {
   );
 };
 
-TableItem.propTypes = {
+MealItem.propTypes = {
   meal: PropTypes.object.isRequired,
   deleteMeal: PropTypes.func.isRequired,
 };
 
-export default connect(null, { deleteMeal })(TableItem);
+export default connect(null, { deleteMeal })(MealItem);

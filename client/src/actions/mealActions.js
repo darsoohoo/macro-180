@@ -29,10 +29,28 @@ export const getMeals = () => async dispatch => {
 
         const res = await fetch('/api/meals');
         const data = await res.json();
+        let meals = [];
+          // Group By Algorithm
+        const groupMeals = () => {
+            const items  = data;
+            let keyMap = {};
+            for (let i = 0; i < items.length; i++) {
+            if (!keyMap[items[i]["date"]]) {
+                keyMap[items[i]["date"]] = [];
+                keyMap[items[i]["date"]].push(items[i]);
+            } else {
+                keyMap[items[i]["date"]].push(items[i]);
+            }
+            }
+            console.log("keyMap", keyMap)
+            meals.push(keyMap)    
+            return meals;
+        };
+              
 
         dispatch({
             type: GET_MEALS,
-            payload: data
+            payload: groupMeals()
         });
         
     } catch (err) {
