@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import mealReducer from './mealReducer';
+import authReducer from './authReducer';
 
 export default combineReducers({
-    meal: mealReducer
+    meal: mealReducer,
+    auth: authReducer
 });

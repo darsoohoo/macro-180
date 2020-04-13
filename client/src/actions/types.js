@@ -8,3 +8,5 @@ export const CLEAR_MEALS = 'CLEAR_MEALS';
 export const SET_LOADING = 'SET_LOADING';
 export const MEALS_ERROR = 'MEALS_ERROR';
 export const SEARCH_MEALS = 'SEARCH_MEALS';
+export const SIGN_IN = 'SIGN_IN';
+export const SIGN_OUT = 'SIGN_OUT';
